@@ -12,7 +12,7 @@ from IPython.display import Audio
 # This terminal implementation can run standalone or imported for assistant.py
 # by Nik Stromberg - nikorasu85@gmail.com - MIT 2022 - copilot
 
-Model = 'large-v2'  # Whisper model size (tiny, base, small, medium, large)
+Model = 'small'  # Whisper model size (tiny, base, small, medium, large)
 English = False  # Use English-only model?
 Language = 'ko'
 Translate = True  # Translate non-English to English?
@@ -38,6 +38,8 @@ class StreamHandler:
         self.fileready = False
         print("\033[96mLoading Whisper Model..\033[0m", end='', flush=True)
         self.model = whisper.load_model(f'{Model}{".en" if English else ""}')
+        os.environ["SUNO_OFFLOAD_CPU"] = "True"
+        os.environ["SUNO_USE_SMALL_MODELS"] = "True"
         # load bark model
         preload_models()
         print("\033[90m Done.\033[0m")
