@@ -1,5 +1,7 @@
 import whisper
+import torch
 
+print(torch.cuda.is_available())
 model = whisper.load_model("large-v2")
 # add translate option
 # options = whisper.DecodingOptions(language="ko", task="translate")
